@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pdfcor"
-version = "0.1.0"
+version = "0.2.0"
 description = ""
 authors = ["infocornouaille <90894019+infocornouaille@users.noreply.github.com>"]
 readme = "README.md"
