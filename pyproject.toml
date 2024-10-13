@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "pdfcor"
+version = "0.1.0"
+description = ""
+authors = ["infocornouaille <90894019+infocornouaille@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.scripts]
+pdfcor = "pdfcor.cli:main"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<4.0"
+pymupdf = "^1.24.11"
+pillow = "^10.4.0"
+
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.10.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
