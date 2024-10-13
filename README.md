@@ -1,10 +1,5 @@
 # pdfcor
 
-![PyPI version](https://img.shields.io/pypi/v/pdfcor.svg)
-![Python versions](https://img.shields.io/pypi/pyversions/pdfcor.svg)
-![License](https://img.shields.io/github/license/votre-nom-utilisateur/pdfcor.svg)
-![Build status](https://img.shields.io/github/workflow/status/votre-nom-utilisateur/pdfcor/CI)
-
 pdfcor est un package Python conçu pour extraire le contenu des fichiers PDF et le convertir en format Markdown avec les images incluses.
 
 ## Installation
