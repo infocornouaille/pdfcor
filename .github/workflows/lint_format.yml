@@ -1,0 +1,29 @@
+name: Lint and Format Check
+
+on:
+  push:
+    branches: [ main ] # Adjust if your main branch is different
+  pull_request:
+    branches: [ main ] # Adjust if your main branch is different
+
+jobs:
+  ruff_check:
+    name: Run Ruff Linter and Formatter Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9' # Match project's Python version
+
+      - name: Install Ruff
+        run: pip install ruff
+
+      - name: Run Ruff Linter
+        run: ruff check .
+
+      - name: Run Ruff Formatter Check
+        run: ruff format --check .

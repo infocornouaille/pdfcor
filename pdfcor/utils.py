@@ -1,6 +1,7 @@
 import re
-from PIL import Image # Keep this for Image.LANCZOS and other Image module constants
-from PIL.Image import Image as PillowImage # For type hinting
+
+from PIL import Image  # Keep this for Image.LANCZOS and other Image module constants
+from PIL.Image import Image as PillowImage  # For type hinting
 
 
 def slugify(text: str) -> str:
@@ -16,7 +17,7 @@ def resize_for_a4(image: PillowImage) -> PillowImage:
     max_width_px: int = int(a4_width / 25.4 * dpi)
     max_height_px: int = int(a4_height / 25.4 * dpi)
 
-    if image.width == 0 or image.height == 0: # Avoid division by zero for empty images
+    if image.width == 0 or image.height == 0:  # Avoid division by zero for empty images
         # For a 0x0 image, resizing is tricky. Return a copy or a 1x1 placeholder?
         # Copying preserves it. If it needs to be valid for further Pillow ops, a 1x1 might be better.
         # However, the original code would have errored; copy is safer.
@@ -29,14 +30,18 @@ def resize_for_a4(image: PillowImage) -> PillowImage:
 
     # Ensure new dimensions are at least 1 pixel if original was not 0,
     # to avoid errors with image.resize((0,0), ...) or image.resize((x,0), ...)
-    if new_width == 0 and image.width > 0 : new_width = 1
-    if new_height == 0 and image.height > 0 : new_height = 1
+    if new_width == 0 and image.width > 0:
+        new_width = 1
+    if new_height == 0 and image.height > 0:
+        new_height = 1
 
     # If after adjustment, dimensions are still zero (e.g. original image was 0x0 and ratio made it 0)
     # This case is mostly covered by the initial check for image.width/height == 0.
     # But if ratio somehow resulted in 0 for a non-zero dimension image (e.g. extremely small float ratio * small int dim)
-    if new_width == 0 or new_height == 0 :
-         return image.copy() # Fallback to returning a copy if new dimensions are invalid
+    if new_width == 0 or new_height == 0:
+        return (
+            image.copy()
+        )  # Fallback to returning a copy if new dimensions are invalid
 
     new_size: tuple[int, int] = (new_width, new_height)
     return image.resize(new_size, Image.LANCZOS)

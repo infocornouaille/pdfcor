@@ -11,6 +11,30 @@ pdfcor is a versatile Python package for working with PDF files. It allows you t
 pip install pdfcor
 ```
 
+### Using pipx (Recommended for CLI tool)
+
+If you want to use `pdfcor` as a command-line tool, `pipx` is recommended as it installs the package in an isolated environment and makes its entry points available system-wide.
+
+First, ensure `pipx` is installed:
+```
+python -m pip install --user pipx
+python -m pipx ensurepath
+```
+
+Then, install `pdfcor` using `pipx`:
+```
+pipx install pdfcor
+```
+Now you can run `pdfcor` commands directly from your terminal. To upgrade later: `pipx upgrade pdfcor`.
+
+### Using uv (Alternative Installer)
+
+If you prefer using `uv` (a fast Python package installer), you can install `pdfcor` with:
+```
+uv pip install pdfcor
+```
+This is an alternative to using `pip`.
+
 ## Dependencies
 
 pdfcor depends on the following libraries:
@@ -27,8 +51,9 @@ pdfcor can be used from the command line with various options:
 ### Extracting Content to Markdown
 
 ```
-pdfcor --input-folder <input_folder> --output-folder <output_folder> [--recursive] [--resize]
+pdfcor process [OPTIONS]
 ```
+(Or more explicitly: `pdfcor process --input-folder <input_folder> --output-folder <output_folder> [--recursive] [--resize]`)
 
 #### Options
 
@@ -40,8 +65,9 @@ pdfcor --input-folder <input_folder> --output-folder <output_folder> [--recursiv
 ### Merging PDFs
 
 ```
-pdfcor --fusion [--input-folder <input_folder>] [--output-file <output_filename_or_path>]
+pdfcor merge [OPTIONS]
 ```
+(Or more explicitly: `pdfcor merge --input-folder <input_folder> --output-file <output_filename_or_path>`)
 
 This command merges all PDFs in a folder without any transformation.
 
@@ -56,7 +82,7 @@ This command merges all PDFs in a folder without any transformation.
 ### Extracting Pages
 
 ```
-pdfcor --pages <pdf_file>
+pdfcor extract <pdf_file>
 ```
 
 This command extracts all pages from a PDF into separate files.
@@ -69,21 +95,22 @@ This command extracts all pages from a PDF into separate files.
 
 1.  Extract content from all PDFs in the current directory (output to `./pdfcor_output`):
     ```
-    pdfcor
+    pdfcor process
     ```
+    (If `--input-folder` is not specified, it defaults to the current directory. If `--output-folder` is not specified, it defaults to `pdfcor_output` inside the input directory.)
 
 2.  Merge all PDFs in a folder, specifying the name and location of the merged file:
     ```
-    pdfcor --fusion --input-folder /path/to/pdfs --output-file /path/to/other_folder/merged.pdf
+    pdfcor merge --input-folder /path/to/pdfs --output-file /path/to/other_folder/merged.pdf
     ```
     To save in the input folder with a specific name:
     ```
-    pdfcor --fusion --input-folder /path/to/pdfs --output-file local_merge.pdf
+    pdfcor merge --input-folder /path/to/pdfs --output-file local_merge.pdf
     ```
 
 3.  Extract pages from a specific PDF:
     ```
-    pdfcor --pages example.pdf
+    pdfcor extract example.pdf
     ```
 
 ## Using as a Python Module
@@ -144,6 +171,27 @@ pdfcor uses Python's `logging` module to display informational and error message
 ## Contributing
 
 Contributions are welcome! Feel free to open an issue or submit a pull request on our GitHub repository.
+
+### Code Style and Quality
+
+This project uses [Ruff](https://github.com/astral-sh/ruff) for linting and code formatting (Black-compatible style).
+We encourage contributors to format their code before submitting pull requests. You can do this by running:
+
+```bash
+# Install ruff if you haven't already (ideally in your project's virtual environment)
+# pip install ruff
+# or if using poetry and it's a dev dependency:
+# poetry install --with dev
+
+# Format the code
+ruff format .
+
+# Check for linting issues (and autofix some)
+ruff check --fix .
+```
+
+A GitHub Actions workflow is also in place to automatically check code formatting and linting on pushes and pull requests.
+Please ensure your contributions pass these checks.
 
 ## License
 
