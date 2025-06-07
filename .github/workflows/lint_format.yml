@@ -1,0 +1,39 @@
+name: Lint and Format Check
+
+on:
+  push:
+    branches: [ main ] # Adjust if your main branch is different
+  pull_request:
+    branches: [ main ] # Adjust if your main branch is different
+
+jobs:
+  ruff_check:
+    name: Run Ruff Linter and Formatter Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9' # Match project's Python version
+
+      - name: Install uv
+        run: pip install uv # Simpler uv installation
+
+      - name: Create virtual environment and install dependencies
+        run: |
+          uv venv .venv --python $(which python) # Create venv using the Python from setup-python
+          source .venv/bin/activate # Activate the venv
+          uv pip install -e .[dev]  # Install project in editable mode with dev dependencies (includes Ruff)
+
+      - name: Run Ruff Linter
+        run: |
+          source .venv/bin/activate # Ensure venv is active
+          ruff check .
+
+      - name: Run Ruff Formatter Check
+        run: |
+          source .venv/bin/activate # Ensure venv is active
+          ruff format --check .

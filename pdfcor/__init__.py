@@ -1,1 +1,1 @@
-from .core import process_pdf, process_folder, merge_pdfs, extract_pages
+__version__ = "0.2.0"

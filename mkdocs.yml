@@ -1,0 +1,69 @@
+site_name: pdfcor Documentation
+site_url: https://infocornouaille.github.io/pdfcor/ # User's actual username and repo
+repo_url: https://github.com/infocornouaille/pdfcor/ # User's actual username and repo
+repo_name: pdfcor
+# edit_uri: "edit/main/docs/" # Optional: If your docs are in a 'docs' folder on 'main' branch
+
+theme:
+  name: material
+  language: en # Default language for theme elements like "Search"
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette: # Example palette
+    - scheme: default
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/toggle-switch-outline # Updated icon
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/toggle-switch # Updated icon
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+extra:
+  alternate:
+    # These links are relative to the `site_url`
+    # If English is at site root (e.g. infocornouaille.github.io/pdfcor/)
+    # and French is at infocornouaille.github.io/pdfcor/fr/
+    - name: English
+      link: /pdfcor/ # Or just "/" if deploying to root of a custom domain
+      lang: en
+    - name: Français
+      link: /pdfcor/fr/ # Or "/fr/" if deploying to root of a custom domain
+      lang: fr
+
+plugins:
+  - search
+  # Other plugins like 'social' for social cards can be added later.
+
+# The nav structure defines how files in `docs_dir` (default: 'docs') are presented.
+# We have docs/en/* and docs/fr/*.
+# To serve English from the root and French from /fr/, we might need to adjust
+# how files are laid out or use a plugin.
+# A common simple approach is to have English files at the root of `docs/`
+# and French files in `docs/fr/`.
+# Let's assume this structure for the nav.
+# This means `docs/index.md` (English home), `docs/installation.md` (English install), etc.
+# And `docs/fr/index.md` (French home), `docs/fr/installation.md` (French install), etc.
+
+nav:
+  - Home (English): index.md # Points to docs/index.md
+  - Installation (English): installation.md # Points to docs/installation.md
+  - Usage Guide (English): usage.md # Points to docs/usage.md
+  - Contributing (English): contributing.md # Points to docs/contributing.md
+  - Français: # This creates a top-level menu item "Français"
+    - Accueil: fr/index.md # Points to docs/fr/index.md
+    - Installation: fr/installation.md
+    - Guide d'utilisation: fr/usage.md
+    - Contribuer: fr/contributing.md

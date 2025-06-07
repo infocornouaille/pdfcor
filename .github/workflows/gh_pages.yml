@@ -1,0 +1,50 @@
+name: Deploy Documentation to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Or your default branch
+
+jobs:
+  deploy:
+    name: Build and Deploy Docs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # Needed to checkout the repository
+      pages: write    # Needed to deploy to GitHub Pages
+      id-token: write # Needed for OIDC token if an action requires it for auth (not strictly for gh-pages basic deploy)
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history for git info (e.g., last updated) if theme uses it
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9' # Match project's Python version
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install documentation dependencies
+        run: |
+          uv venv .venv --python $(which python)
+          source .venv/bin/activate
+          uv pip install .[docs] # Installs mkdocs, mkdocs-material, etc.
+
+      - name: Build MkDocs site
+        run: |
+          source .venv/bin/activate
+          mkdocs build # Output will be in 'site' directory
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3 # Updated to v3
+        with:
+          path: site/
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4 # Updated to v4
+        # id: deployment # No specific id needed unless outputting deployment URL
+        # No 'token' needed as it uses GITHUB_TOKEN by default with correct permissions
