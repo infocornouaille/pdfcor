@@ -3,7 +3,7 @@
 ![PyPI version](https://img.shields.io/pypi/v/pdfcor.svg)
 ![Python versions](https://img.shields.io/pypi/pyversions/pdfcor.svg)
 
-pdfcor est un package Python polyvalent pour travailler avec des fichiers PDF. Il permet d'extraire le contenu en format Markdown avec les images, de fusionner des PDF et d'extraire des pages individuelles.
+pdfcor is a versatile Python package for working with PDF files. It allows you to extract content in Markdown format with images, merge PDFs, and extract individual pages.
 
 ## Installation
 
@@ -11,140 +11,140 @@ pdfcor est un package Python polyvalent pour travailler avec des fichiers PDF. I
 pip install pdfcor
 ```
 
-## Dépendances
+## Dependencies
 
-pdfcor dépend des bibliothèques suivantes :
+pdfcor depends on the following libraries:
 
-- PyMuPDF (fitz) : pour l'extraction du contenu des PDF et la manipulation des fichiers PDF
-- Pillow (PIL) : pour le traitement des images
+- PyMuPDF (fitz): for extracting content from PDFs and manipulating PDF files
+- Pillow (PIL): for image processing
 
-Ces dépendances seront automatiquement installées lors de l'installation de pdfcor via pip.
+These dependencies will be automatically installed when you install pdfcor via pip.
 
-## Utilisation
+## Usage
 
-pdfcor peut être utilisé en ligne de commande avec diverses options :
+pdfcor can be used from the command line with various options:
 
-### Extraction de contenu en Markdown
+### Extracting Content to Markdown
 
 ```
-pdfcor --input-folder <dossier_entree> --output-folder <dossier_sortie> [--recursive] [--resize]
+pdfcor --input-folder <input_folder> --output-folder <output_folder> [--recursive] [--resize]
 ```
 
 #### Options
 
-- `--input-folder` : Spécifie le dossier d'entrée contenant les fichiers PDF à traiter. Par défaut, il utilise le dossier courant.
-- `--output-folder` : Définit le dossier de sortie pour les fichiers Markdown et les images extraites. Si non spécifié, il utilise un sous-dossier nommé `pdfcor_output` dans le dossier d'entrée.
-- `--recursive` : Active le traitement récursif des sous-dossiers.
-- `--resize` : Redimensionne les images extraites pour qu'elles tiennent sur une page A4.
+- `--input-folder`: Specifies the input folder containing the PDF files to process. By default, it uses the current directory.
+- `--output-folder`: Defines the output folder for the Markdown files and extracted images. If not specified, it uses a subfolder named `pdfcor_output` within the input folder.
+- `--recursive`: Enables recursive processing of subfolders.
+- `--resize`: Resizes extracted images to fit on an A4 page.
 
-### Fusion de PDF
+### Merging PDFs
 
 ```
-pdfcor --fusion [--input-folder <dossier_entree>] [--output-file <nom_fichier_sortie_ou_chemin>]
+pdfcor --fusion [--input-folder <input_folder>] [--output-file <output_filename_or_path>]
 ```
 
-Cette commande fusionne tous les PDF d'un dossier sans aucune transformation.
+This command merges all PDFs in a folder without any transformation.
 
 #### Options
 
-- `--input-folder` : Spécifie le dossier contenant les PDF à fusionner. Par défaut, utilise le dossier courant.
-- `--output-file` : Spécifie le nom et/ou le chemin du fichier PDF fusionné.
-    - Si seul un nom est fourni (ex: `mon_fichier.pdf`), le PDF fusionné sera sauvegardé dans le dossier d'entrée (`--input-folder`).
-    - Si un chemin complet est fourni (ex: `/un/autre/dossier/mon_fichier.pdf`), il sera sauvegardé à cet emplacement.
-    - Si cette option n'est pas utilisée, le fichier fusionné sera nommé d'après le dossier d'entrée (ex: `nom_dossier_entree.pdf`) et sauvegardé dans ce même dossier d'entrée.
+- `--input-folder`: Specifies the folder containing the PDFs to merge. By default, uses the current directory.
+- `--output-file`: Specifies the name and/or path of the merged PDF file.
+    - If only a name is provided (e.g., `my_file.pdf`), the merged PDF will be saved in the input folder (`--input-folder`).
+    - If a full path is provided (e.g., `/another/folder/my_file.pdf`), it will be saved to that location.
+    - If this option is not used, the merged file will be named after the input folder (e.g., `input_folder_name.pdf`) and saved in that same input folder.
 
-### Extraction de pages
+### Extracting Pages
 
 ```
-pdfcor --pages <fichier_pdf>
+pdfcor --pages <pdf_file>
 ```
 
-Cette commande extrait toutes les pages d'un PDF dans des fichiers séparés.
+This command extracts all pages from a PDF into separate files.
 
 #### Options
 
-- `<fichier_pdf>` : Le fichier PDF dont vous voulez extraire les pages.
+- `<pdf_file>`: The PDF file from which you want to extract pages.
 
-## Exemples
+## Examples
 
-1. Extraire le contenu de tous les PDF dans le dossier courant (sortie dans `./pdfcor_output`):
-   ```
-   pdfcor
-   ```
+1.  Extract content from all PDFs in the current directory (output to `./pdfcor_output`):
+    ```
+    pdfcor
+    ```
 
-2. Fusionner tous les PDF d'un dossier, en spécifiant le nom et l'emplacement du fichier fusionné :
-   ```
-   pdfcor --fusion --input-folder /chemin/vers/pdfs --output-file /chemin/vers/autre_dossier/fusion.pdf
-   ```
-   Pour sauvegarder dans le dossier d'entrée avec un nom spécifique :
-   ```
-   pdfcor --fusion --input-folder /chemin/vers/pdfs --output-file fusion_locale.pdf
-   ```
+2.  Merge all PDFs in a folder, specifying the name and location of the merged file:
+    ```
+    pdfcor --fusion --input-folder /path/to/pdfs --output-file /path/to/other_folder/merged.pdf
+    ```
+    To save in the input folder with a specific name:
+    ```
+    pdfcor --fusion --input-folder /path/to/pdfs --output-file local_merge.pdf
+    ```
 
-3. Extraire les pages d'un PDF spécifique :
-   ```
-   pdfcor --pages example.pdf
-   ```
+3.  Extract pages from a specific PDF:
+    ```
+    pdfcor --pages example.pdf
+    ```
 
-## Utilisation comme module Python
+## Using as a Python Module
 
-Vous pouvez également utiliser pdfcor comme module dans vos scripts Python :
+You can also use pdfcor as a module in your Python scripts:
 
 ```python
 from pdfcor import process_pdf, process_folder, merge_pdfs, extract_pages
 
-# Traiter un seul fichier PDF
-process_pdf("/chemin/vers/fichier.pdf", "/chemin/vers/sortie", resize=False)
+# Process a single PDF file
+process_pdf("/path/to/file.pdf", "/path/to/output", resize=False)
 
-# Traiter un dossier entier
-process_folder("/chemin/vers/dossier", "/chemin/vers/sortie", recursive=True, resize=True)
+# Process an entire folder
+process_folder("/path/to/folder", "/path/to/output", recursive=True, resize=True)
 
-# Fusionner des PDF
-merge_pdfs("/chemin/vers/dossier", "fichier_fusionne.pdf")
+# Merge PDFs
+merge_pdfs("/path/to/folder", "merged_file.pdf") # Saves merged_file.pdf in /path/to/folder
 
-# Extraire les pages d'un PDF
-extract_pages("/chemin/vers/fichier.pdf")
+# Extract pages from a PDF
+extract_pages("/path/to/file.pdf")
 ```
 
-## Fonctionnalités
+## Features
 
-- Extraction du contenu textuel des PDF en format Markdown
-- Extraction et sauvegarde des images contenues dans les PDF
-- Option de traitement récursif des sous-dossiers
-- Redimensionnement optionnel des images pour une mise en page A4
-- Fusion de plusieurs fichiers PDF en un seul document
-- Extraction de pages individuelles d'un PDF
-- Utilisable en ligne de commande ou comme module Python
-- Messages d'information et d'erreur via le module `logging`
+- Extraction of textual content from PDFs into Markdown format
+- Extraction and saving of images contained in PDFs
+- Optional recursive processing of subfolders
+- Optional resizing of images for A4 layout
+- Merging of multiple PDF files into a single document
+- Extraction of individual pages from a PDF
+- Usable from the command line or as a Python module
+- Informational and error messages via the `logging` module
 
-## Fonctionnement
+## How It Works
 
-pdfcor offre plusieurs fonctionnalités principales :
+pdfcor offers several main functionalities:
 
-1. Extraction de contenu en Markdown :
-   - Ouverture du fichier PDF avec PyMuPDF (fitz)
-   - Extraction du texte et des images page par page
-   - Conversion du texte extrait en format Markdown
-   - Sauvegarde des images extraites et insertion des références dans le Markdown
+1.  **Markdown Content Extraction**:
+    - Opens the PDF file using PyMuPDF (fitz)
+    - Extracts text and images page by page
+    - Converts the extracted text to Markdown format
+    - Saves the extracted images and inserts references into the Markdown
 
-2. Fusion de PDF :
-   - Lecture de tous les fichiers PDF dans le dossier spécifié
-   - Combinaison de tous les PDF en un seul document
-   - Sauvegarde du document fusionné avec le nom du dossier par défaut (si `--output-file` n'est pas utilisé)
+2.  **PDF Merging**:
+    - Reads all PDF files in the specified folder
+    - Combines all PDFs into a single document
+    - Saves the merged document (default name based on folder if `--output-file` is not used)
 
-3. Extraction de pages :
-   - Ouverture du fichier PDF spécifié
-   - Création d'un nouveau PDF pour chaque page
-   - Sauvegarde des pages individuelles dans un dossier dédié (nommé `pages-<nom_pdf_slugifie>`) dans le même répertoire que le PDF original.
+3.  **Page Extraction**:
+    - Opens the specified PDF file
+    - Creates a new PDF for each page
+    - Saves the individual pages in a dedicated folder (named `pages-<slugified_pdf_name>`) in the same directory as the original PDF.
 
 ## Logging
 
-pdfcor utilise le module `logging` de Python pour afficher les messages d'information et d'erreur. Pour une utilisation en tant que bibliothèque, le comportement du logging peut être personnalisé comme pour toute application Python standard utilisant ce module.
+pdfcor uses Python's `logging` module to display informational and error messages. When used as a library, the logging behavior can be customized like any standard Python application using this module.
 
-## Contribution
+## Contributing
 
-Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou à soumettre une pull request sur notre dépôt GitHub.
+Contributions are welcome! Feel free to open an issue or submit a pull request on our GitHub repository.
 
-## Licence
+## License
 
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
