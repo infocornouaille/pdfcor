@@ -2,8 +2,11 @@
 
 ![PyPI version](https://img.shields.io/pypi/v/pdfcor.svg)
 ![Python versions](https://img.shields.io/pypi/pyversions/pdfcor.svg)
+[![Documentation](https://img.shields.io/badge/docs-online-blue?style=flat-square)](https://infocornouaille.github.io/pdfcor/)
 
 pdfcor is a versatile Python package for working with PDF files. It allows you to extract content in Markdown format with images, merge PDFs, and extract individual pages.
+
+For detailed documentation, please visit our [GitHub Pages site](https://infocornouaille.github.io/pdfcor/).
 
 ## Installation
 

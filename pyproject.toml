@@ -36,6 +36,10 @@ dependencies = [
 dev = [
     "ruff>=0.2.0"
 ]
+docs = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.0.0"
+]
 
 [project.scripts]
 pdfcor = "pdfcor.cli:app"
