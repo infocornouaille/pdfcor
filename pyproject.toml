@@ -1,27 +1,51 @@
-[tool.poetry]
-name = "pdfcor"
-version = "0.2.0"
-description = ""
-authors = ["infocornouaille <90894019+infocornouaille@users.noreply.github.com>"]
-readme = "README.md"
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.poetry.scripts]
+[project]
+name = "pdfcor"
+version = "0.2.0" # Static version for now
+description = "A versatile Python package for PDF manipulation: extract content to Markdown, merge PDFs, and extract pages." # Added a description
+readme = "README.md"
+requires-python = ">=3.9,<4.0" # Keep <4.0 for now, can be relaxed if not strictly needed
+license = { file = "LICENSE" } # Assuming LICENSE file exists in root
+authors = [
+    { name = "infocornouaille", email = "90894019+infocornouaille@users.noreply.github.com" }
+]
+keywords = ["pdf", "markdown", "merge", "extract", "cli"] # Added some keywords
+classifiers = [ # Added some classifiers
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Utilities",
+    "Topic :: Text Processing",
+]
+dependencies = [
+    "pymupdf>=1.24.11", # Keep specific versions for now
+    "pillow>=10.4.0",
+    "typer[all]>=0.9.0" # [all] for rich, etc.
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.2.0"
+]
+
+[project.scripts]
 pdfcor = "pdfcor.cli:app"
 
-[tool.poetry.dependencies]
-python = ">=3.9,<4.0"
-pymupdf = "^1.24.11"
-pillow = "^10.4.0"
-typer = {extras = ["all"], version = "^0.9.0"}
+[project.urls] # Added common project URLs
+"Homepage" = "https://github.com/infocornouaille/pdfcor" # Assuming this is the repo URL
+"Repository" = "https://github.com/infocornouaille/pdfcor"
+# "Bug Tracker" = "https://github.com/infocornouaille/pdfcor/issues"
 
-
-[tool.poetry.group.dev.dependencies]
-ruff = "^0.2.0" # Black removed, Ruff added
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
+# Keep Ruff configuration as it is
 [tool.ruff]
 line-length = 88
 target-version = "py39"
@@ -34,9 +58,12 @@ select = [
     "I",  # isort
 ]
 ignore = []
-# fixable = ["ALL"]
 
 [tool.ruff.format]
 # quote-style = "double"
 # indent-style = "space"
 # skip-magic-trailing-comma = false
+
+# Add basic Hatch build configuration if needed, for now, defaults are often fine.
+# [tool.hatch.build.targets.wheel]
+# packages = ["pdfcor"] # Explicitly define package directory if not auto-detected well. Usually src/ or direct name.
