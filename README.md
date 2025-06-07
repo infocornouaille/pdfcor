@@ -33,14 +33,14 @@ pdfcor --input-folder <dossier_entree> --output-folder <dossier_sortie> [--recur
 #### Options
 
 - `--input-folder` : Spécifie le dossier d'entrée contenant les fichiers PDF à traiter. Par défaut, il utilise le dossier courant.
-- `--output-folder` : Définit le dossier de sortie pour les fichiers Markdown et les images extraites. Si non spécifié, il utilise le même dossier que l'entrée.
+- `--output-folder` : Définit le dossier de sortie pour les fichiers Markdown et les images extraites. Si non spécifié, il utilise un sous-dossier nommé `pdfcor_output` dans le dossier d'entrée.
 - `--recursive` : Active le traitement récursif des sous-dossiers.
 - `--resize` : Redimensionne les images extraites pour qu'elles tiennent sur une page A4.
 
 ### Fusion de PDF
 
 ```
-pdfcor --fusion [--input-folder <dossier_entree>] [--output <nom_fichier_sortie>]
+pdfcor --fusion [--input-folder <dossier_entree>] [--output-file <nom_fichier_sortie_ou_chemin>]
 ```
 
 Cette commande fusionne tous les PDF d'un dossier sans aucune transformation.
@@ -48,7 +48,10 @@ Cette commande fusionne tous les PDF d'un dossier sans aucune transformation.
 #### Options
 
 - `--input-folder` : Spécifie le dossier contenant les PDF à fusionner. Par défaut, utilise le dossier courant.
-- `--output` : Spécifie le nom du fichier PDF fusionné. Par défaut, utilise le nom du dossier d'entrée.
+- `--output-file` : Spécifie le nom et/ou le chemin du fichier PDF fusionné.
+    - Si seul un nom est fourni (ex: `mon_fichier.pdf`), le PDF fusionné sera sauvegardé dans le dossier d'entrée (`--input-folder`).
+    - Si un chemin complet est fourni (ex: `/un/autre/dossier/mon_fichier.pdf`), il sera sauvegardé à cet emplacement.
+    - Si cette option n'est pas utilisée, le fichier fusionné sera nommé d'après le dossier d'entrée (ex: `nom_dossier_entree.pdf`) et sauvegardé dans ce même dossier d'entrée.
 
 ### Extraction de pages
 
@@ -64,14 +67,18 @@ Cette commande extrait toutes les pages d'un PDF dans des fichiers séparés.
 
 ## Exemples
 
-1. Extraire le contenu de tous les PDF dans le dossier courant :
+1. Extraire le contenu de tous les PDF dans le dossier courant (sortie dans `./pdfcor_output`):
    ```
    pdfcor
    ```
 
-2. Fusionner tous les PDF d'un dossier :
+2. Fusionner tous les PDF d'un dossier, en spécifiant le nom et l'emplacement du fichier fusionné :
    ```
-   pdfcor --fusion --input-folder /chemin/vers/pdfs
+   pdfcor --fusion --input-folder /chemin/vers/pdfs --output-file /chemin/vers/autre_dossier/fusion.pdf
+   ```
+   Pour sauvegarder dans le dossier d'entrée avec un nom spécifique :
+   ```
+   pdfcor --fusion --input-folder /chemin/vers/pdfs --output-file fusion_locale.pdf
    ```
 
 3. Extraire les pages d'un PDF spécifique :
@@ -108,6 +115,7 @@ extract_pages("/chemin/vers/fichier.pdf")
 - Fusion de plusieurs fichiers PDF en un seul document
 - Extraction de pages individuelles d'un PDF
 - Utilisable en ligne de commande ou comme module Python
+- Messages d'information et d'erreur via le module `logging`
 
 ## Fonctionnement
 
@@ -122,12 +130,16 @@ pdfcor offre plusieurs fonctionnalités principales :
 2. Fusion de PDF :
    - Lecture de tous les fichiers PDF dans le dossier spécifié
    - Combinaison de tous les PDF en un seul document
-   - Sauvegarde du document fusionné avec le nom du dossier par défaut
+   - Sauvegarde du document fusionné avec le nom du dossier par défaut (si `--output-file` n'est pas utilisé)
 
 3. Extraction de pages :
    - Ouverture du fichier PDF spécifié
    - Création d'un nouveau PDF pour chaque page
-   - Sauvegarde des pages individuelles dans un dossier dédié
+   - Sauvegarde des pages individuelles dans un dossier dédié (nommé `pages-<nom_pdf_slugifie>`) dans le même répertoire que le PDF original.
+
+## Logging
+
+pdfcor utilise le module `logging` de Python pour afficher les messages d'information et d'erreur. Pour une utilisation en tant que bibliothèque, le comportement du logging peut être personnalisé comme pour toute application Python standard utilisant ce module.
 
 ## Contribution
 
